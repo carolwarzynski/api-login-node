@@ -1,45 +1,134 @@
-/* importei o express para usa-lo */
+import { PrismaClient } from '@prisma/client'
 import express from 'express'
-/*abri uma variavel para o express*/
-const app = express ()
+
+const prisma = new PrismaClient()
+const app = express()
 app.use(express.json())
 
-const users = []
-/* rec = quesição que chega do front para o back e res= resposta do back para o front*/
+/* =========================
+   CREATE – criar usuário
+========================= */
+app.post('/usuarios', async (req, res) => {
+  try {
+    const { nome, email, idade } = req.body
 
-app.post ('/usuarios', (req, res)=> { 
-   users.push(req.body)
-    res.send('aqui deu certo')
+    // Validação simples
+    const missingFields = []
+    if (!nome) missingFields.push('nome')
+    if (!email) missingFields.push('email')
+    if (!idade) missingFields.push('idade')
+    if (missingFields.length > 0) {
+      return res.status(400).json({ 
+        error: 'Campos obrigatórios ausentes', 
+        fields: missingFields 
+      })
+    }
 
+    const user = await prisma.user.create({
+      data: {
+        nome,
+        email,
+        idade: Number(idade)
+      }
+    })
+
+    res.status(201).json(user)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Erro ao criar usuário', details: error.message })
+  }
 })
-    
-/*chamei um método http - get*/
-app.get('/usuarios', (req, res)=> {
-    res.json(users)
-} )
 
-app.listen (3000)
+/* =========================
+   READ – listar todos usuários
+========================= */
+app.get('/usuarios', async (req, res) => {
+  try {
+    const users = await prisma.user.findMany()
+    res.status(200).json(users)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Erro ao buscar usuários', details: error.message })
+  }
+})
 
-/* CRIAR LISTAGEM DE USUÁRIOS - API 
-1) CRIAR usuario
-2) LISTAR usuario
-3) EDITAR USUARIO 
-4) DELETAR usuario
+/* =========================
+   READ – buscar usuário por ID
+========================= */
+app.get('/usuarios/:id', async (req, res) => {
+  try {
+    const { id } = req.params
 
-existem tres formas de enviar requisições do front pro back, são elas:  
-QUERY PARAMS (GET - consultas) informações direto na URL "comedia&streming=netflix"
-enviar parametros por meio da url - tudo depois do '?'
+    const user = await prisma.user.findUnique({
+      where: { id }
+    })
 
-ROUTE PARAMS (GET / PUT/ DELETE) UMA INFORMAÇÃO POR VEZ. 
-ex: delete servidor.com/usuarios/22 <- esse ID 22 é somente um e eu quero mecher 
-só nele. Então uso o route pra processesar somente uma informação específica 
+    if (!user) {
+      return res.status(404).json({ error: 'Usuário não encontrado' })
+    }
 
-BODY PARAMS (POST E PUT)
- Envia informações pelo bory. informações delicadas: senhas de cartão, id de usuario
+    res.status(200).json(user)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Erro ao buscar usuário', details: error.message })
+  }
+})
 
+/* =========================
+   UPDATE – atualizar usuário
+========================= */
+app.put('/usuarios/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+    const { nome, email, idade } = req.body
 
- para não se perder amanha: criamos as res e req e fizemos funiconar. SO QUE estão ligadas
- a uma variável. ao reiniciar o servidor, perde tudo. precisamos criar um banco de dados
- para armazenar os dados. e vamos fazer isso agora linda.
-*/
+    // Pelo menos um campo precisa ser enviado
+    if (!nome && !email && !idade) {
+      return res.status(400).json({ error: 'É necessário enviar pelo menos um campo para atualizar' })
+    }
 
+    const updatedUser = await prisma.user.update({
+      where: { id },
+      data: {
+        ...(nome && { nome }),
+        ...(email && { email }),
+        ...(idade && { idade: Number(idade) })
+      }
+    })
+
+    res.status(200).json(updatedUser)
+  } catch (error) {
+    console.error(error)
+    // Se o usuário não existe, Prisma lança um erro específico
+    if (error.code === 'P2025') {
+      return res.status(404).json({ error: 'Usuário não encontrado para atualizar' })
+    }
+    res.status(500).json({ error: 'Erro ao atualizar usuário', details: error.message })
+  }
+})
+
+/* =========================
+   DELETE – remover usuário
+========================= */
+app.delete('/usuarios/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+
+    await prisma.user.delete({ where: { id } })
+    res.status(200).json({ message: 'Usuário deletado com sucesso' })
+  } catch (error) {
+    console.error(error)
+    if (error.code === 'P2025') {
+      return res.status(404).json({ error: 'Usuário não encontrado para deletar' })
+    }
+    res.status(500).json({ error: 'Erro ao deletar usuário', details: error.message })
+  }
+})
+
+/* =========================
+   SERVER
+========================= */
+const PORT = process.env.PORT || 3000
+app.listen(PORT, () => {
+  console.log(`Servidor rodando em http://localhost:${PORT}`)
+})
