@@ -6,17 +6,17 @@ Aplicação fullstack com CRUD completo para gerenciamento de usuários, integra
 ## 🛠 Tecnologias Utilizadas
 
 ### Backend
--Node.js
--Express
--Prisma ORM
--MongoDB
--CORS
+-Node.js <br>
+-Express <br>
+-Prisma ORM <br>
+-MongoDB <br>
+-CORS <br>
 
 ### Frontend
--HTML5
--CSS3
--JavaScript (Vanilla JS)
--Fetch API
+-HTML5 <br>
+-CSS3 <br>
+-JavaScript (Vanilla JS) <br>
+-Fetch API <br>
 
 ## ✨ Funcionalidades
 - Criar usuário <br>
