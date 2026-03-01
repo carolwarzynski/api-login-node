@@ -6,7 +6,7 @@ Este projeto foi criado com o objetivo de praticar conceitos fundamentais de bac
 
 ---
 
-## Tecnologias utilizadas
+## Ambiente preparado com:
 
 - Node.js
 - Express
