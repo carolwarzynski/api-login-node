@@ -19,15 +19,15 @@ Aplicação fullstack com CRUD completo para gerenciamento de usuários, integra
 -Fetch API
 
 ## ✨ Funcionalidades
-- Criar usuário
--Listar usuários
--Atualizar usuário
--Deletar usuário
--Deletar usuário
--Validação de campos obrigatórios
--Tratamento de erros HTTP (400, 404, 500)
--Integração Frontend ↔ Backend
--Configuração de CORS
+- Criar usuário <br>
+-Listar usuários <br>
+-Atualizar usuário <br>
+-Deletar usuário <br>
+-Deletar usuário <br>
+-Validação de campos obrigatórios <br>
+-Tratamento de erros HTTP (400, 404, 500) <br>
+-Integração Frontend ↔ Backend <br>
+-Configuração de CORS <br>
 
 ## Estrutura do projeto
 
@@ -71,12 +71,12 @@ Abra o arquivo index.html com a extensão Live Server no VS Code.
 ### Objetivo do Projeto
 
 Este projeto foi desenvolvido com foco em:
--Praticar arquitetura fullstack
--Trabalhar integração cliente-servidor
--Aplicar versionamento com Git
--Resolver problemas reais (CORS, rotas, merge)
--Consolidar conceitos de API REST
+-Praticar arquitetura fullstack <br>
+-Trabalhar integração cliente-servidor <br>
+-Aplicar versionamento com Git <br>
+-Resolver problemas reais (CORS, rotas, merge) <br>
+-Consolidar conceitos de API REST <br>
 
-Desenvolvido por:
-Ana Carolina Warzynski
+Desenvolvido por: <br>
+Ana Carolina Warzynski <br>
 Projeto para portfólio e evolução profissional.
