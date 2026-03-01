@@ -1,109 +1,82 @@
-# Backend – Controle de Usuários
+## Sistema de Gerenciamento de Usuários – Fullstack
 
-API REST desenvolvida em Node.js para cadastro e consulta de usuários, com persistência de dados em MongoDB utilizando Prisma ORM.
-
-Este projeto foi criado com o objetivo de praticar conceitos fundamentais de backend, como rotas HTTP, integração com banco de dados, validação de dados e tratamento de erros.
-
+Aplicação fullstack com CRUD completo para gerenciamento de usuários, integrando frontend em JavaScript puro com backend em Node.js, Express e Prisma ORM conectado ao MongoDB.
 ---
 
-## Ambiente preparado com:
+## 🛠 Tecnologias Utilizadas
 
-- Node.js
-- Express
-- Prisma ORM
-- MongoDB Atlas
-- JavaScript (ES Modules)
+### Backend
+-Node.js
+-Express
+-Prisma ORM
+-MongoDB
+-CORS
 
----
+### Frontend
+-HTML5
+-CSS3
+-JavaScript (Vanilla JS)
+-Fetch API
 
-## Funcionalidades
-
-- Criar usuários
-- Listar todos os usuários
-- Buscar usuário por ID
-- Validação de dados de entrada
-- Tratamento de erros com status HTTP adequados
-
----
+## ✨ Funcionalidades
+- Criar usuário
+-Listar usuários
+-Atualizar usuário
+-Deletar usuário
+-Deletar usuário
+-Validação de campos obrigatórios
+-Tratamento de erros HTTP (400, 404, 500)
+-Integração Frontend ↔ Backend
+-Configuração de CORS
 
 ## Estrutura do projeto
 
-```
-├── prisma/
-│ └── schema.prisma
-├── server.js
-├── package.json
-├── .gitignore
-└── README.md
-´´´
----
+/backend
+  ├── server.js
+  ├── prisma/
+  ├── package.json
 
-## Rotas de API
+/frontend
+  ├── index.html
+  ├── style.css
+  ├── script.js
 
-## Criar usuário
+  ## Como Executar o Projeto
 
-**POST** `/usuarios`
-
-Body (JSON):
-```json
-{
-  "nome": "Ana",
-  "email": "ana@email.com",
-  "idade": 25 }
-  ´´´
-Resposta:
-
-201 Created – usuário criado com sucesso
-
-400 Bad Request – dados inválidos
-
-500 Internal Server Error – erro no servidor
-
-Listar usuários
-
-GET /usuarios
-
-Resposta:
-
-200 OK – lista de usuários
-
-Buscar usuário por ID
-
-GET /usuarios/:id
-
-Resposta:
-
-200 OK – usuário encontrado
-
-404 Not Found – usuário não encontrado
-
-Como executar o projeto localmente
-
-Clone o repositório:
-
-git clone <url-do-repositorio>
-
-
-Instale as dependências:
-
+  ### 1 - CLONE O REPOSITÓRIO 
+  - git clone https://github.com/carolwarzynski/api-login-node.git
+   
+###  2 - Rodar o Backend
+cd backend
 npm install
+node server.js
 
-
-Crie um arquivo .env na raiz do projeto com a variável:
-
-DATABASE_URL=sua_string_de_conexao_do_mongodb
-
-Execute o projeto:
-
-npm run dev
-
-
-O servidor será iniciado em:
+O servidor rodará em:
 
 http://localhost:3000
 
-Observações
+###  3 - Rodar o Frontend
 
-O arquivo .env não é versionado por questões de segurança.
+Abra o arquivo index.html com a extensão Live Server no VS Code.
 
-Este projeto é apenas para fins de estudo e portfólio.
+## Endpoints da API
+| Método | Rota          | Descrição     |
+| ------ | ------------- | ------------- |
+| POST   | /usuarios     | Criar usuário |
+| GET    | /usuarios     | Listar todos  |
+| GET    | /usuarios/:id | Buscar por ID |
+| PUT    | /usuarios/:id | Atualizar     |
+| DELETE | /usuarios/:id | Deletar       |
+
+### Objetivo do Projeto
+
+Este projeto foi desenvolvido com foco em:
+-Praticar arquitetura fullstack
+-Trabalhar integração cliente-servidor
+-Aplicar versionamento com Git
+-Resolver problemas reais (CORS, rotas, merge)
+-Consolidar conceitos de API REST
+
+Desenvolvido por:
+Ana Carolina Warzynski
+Projeto para portfólio e evolução profissional.
